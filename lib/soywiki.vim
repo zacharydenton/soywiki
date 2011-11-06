@@ -379,7 +379,6 @@ function! s:page_list_window(page_match_list, buffer_name, prompt)
   resize 1
   inoremap <silent> <buffer> <cr> <Esc>:call <SID>select_page()<CR> 
   inoremap <buffer> <Tab> <Esc>:call <SID>reduce_matches()<cr>
-  noremap <buffer> q <Esc>:close<cr>
   inoremap <buffer> <Esc> <Esc>:close<cr>
   
   "  Bad, gets buggy with frag "dai"
@@ -609,7 +608,6 @@ func! s:global_mappings()
   nnoremap <leader>n :call <SID>list_namespaces()<CR>
 
   nnoremap <silent> <leader>o :call <SID>find_next_href_and_open()<cr> 
-  nnoremap <silent> q :close<cr>
   " for netrw vertical split
   nnoremap ,O :exec "silent botright vsplit ". expand("<cWORD>")<cr>
 

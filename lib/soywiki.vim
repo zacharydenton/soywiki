@@ -10,9 +10,9 @@ let g:SoyWikiLoaded = 1
 let mapleader = ','
 
 " This regex matches namedspaced WikiWords and unqualified WikiWords 
-let s:wiki_link_pattern =  '\C\m\<\([a-z][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>'
+let s:wiki_link_pattern =  '\C\m\<\([a-z0-9][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z0-9]\w*\>'
 let s:http_link_pattern = 'https\?:[^ >)\]]\+'
-let s:wiki_or_web_link_pattern =  '\C\<\([a-z][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z]\w*\>\|https\?:[^ >)\]]\+'
+let s:wiki_or_web_link_pattern =  '\C\<\([a-z0-9][[:alnum:]_]\+\.\)\?[A-Z][a-z]\+[A-Z0-9]\w*\>\|https\?:[^ >)\]]\+'
 
 let s:rename_links_command = 'soywiki-rename '
 let s:find_pages_linking_in_command = 'soywiki-pages-linking-in '
@@ -211,6 +211,7 @@ func! s:load_page(page, split)
   elseif (a:split == 0) 
     exec "e ".file
   endif
+  normal 3G0
   if s:search_for_link != ''
     let res = search(s:search_for_link, 'cw')
     let s:search_for_link = ''
@@ -630,9 +631,9 @@ func! s:prep_buffer()
   if (s:is_wiki_page() && !exists("b:mappings_loaded"))
     " let user decide on the textwidth
     set filetype=pandoc
-    nnoremap <buffer> <cr> :call <SID>follow_link_under_cursor(0)<cr> 
-    nnoremap <buffer> <c-l> :call <SID>follow_link_under_cursor(2)<cr> 
-    nnoremap <buffer> <c-h> :call <SID>follow_link_under_cursor(1)<cr> 
+    nnoremap <buffer> <cr> :call <SID>follow_link_under_cursor(0)<cr>
+    nnoremap <buffer> <c-l> :call <SID>follow_link_under_cursor(2)<cr>
+    nnoremap <buffer> <c-h> :call <SID>follow_link_under_cursor(1)<cr>
     noremap <buffer> <leader>f :call <SID>fuzzy_follow_link(0)<CR>
     noremap <buffer> <c-j> :call <SID>find_next_wiki_link(0)<CR>
     noremap <buffer> <c-k> :call <SID>find_next_wiki_link(1)<CR>
